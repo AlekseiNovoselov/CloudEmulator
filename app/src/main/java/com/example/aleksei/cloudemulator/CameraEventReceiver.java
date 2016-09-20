@@ -14,5 +14,7 @@ public class CameraEventReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e(LOG_TAG, "onReveice");
         Toast.makeText(context, "New Photo Clicked", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(context, ChatHeadService.class);
+        context.startService(i);
     }
 }

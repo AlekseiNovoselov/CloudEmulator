@@ -9,8 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.aleksei.cloudemulator.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/permition_button"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerInParent="true"
+        android:text="Enable Permision"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
 </RelativeLayout>
