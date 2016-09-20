@@ -4,17 +4,25 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/cloud_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".CameraEventReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.example.aleksei.NEW_IMAGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
