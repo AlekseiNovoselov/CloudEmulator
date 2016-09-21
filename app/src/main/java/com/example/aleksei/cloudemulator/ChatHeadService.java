@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 
 public class ChatHeadService extends Service {
 
+    private static final String LOG_TAG = ChatHeadService.class.getSimpleName();
     private RelativeLayout chatheadView, removeView;
     private ImageView removeImg;
     private Point szWindow = new Point();
@@ -73,7 +74,15 @@ public class ChatHeadService extends Service {
         params.y = 100;
         windowManager.addView(chatheadView, params);
 
+        chatheadView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(LOG_TAG, "onClick");
+            }
+        });
+
         chatheadView.setOnTouchListener(new View.OnTouchListener() {
+            long time_start = 0, time_end = 0;
             boolean isLongclick = false, inBounded = false;
             int remove_img_width = 0, remove_img_height = 0;
 
@@ -101,6 +110,7 @@ public class ChatHeadService extends Service {
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        time_start = System.currentTimeMillis();
                         handler_longClick.postDelayed(runnable_longClick, 600);
 
                         remove_img_width = removeImg.getLayoutParams().width;
@@ -183,6 +193,11 @@ public class ChatHeadService extends Service {
                             break;
                         }
 
+                        time_end = System.currentTimeMillis();
+                        if((time_end - time_start) < 300){
+                            onClick();
+                        }
+
                         int y_diff = y_cord - y_init_cord;
 
                         y_cord_Destination = y_init_margin + y_diff;
@@ -205,6 +220,15 @@ public class ChatHeadService extends Service {
                 return true;
             }
         });
+    }
+
+    private void onClick() {
+        clearViews();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        windowManager = null;
+        this.stopSelf();
     }
 
     private int getStatusBarHeight() {
@@ -230,14 +254,18 @@ public class ChatHeadService extends Service {
     public void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+        clearViews();
+    }
 
-        if(chatheadView != null){
-            windowManager.removeView(chatheadView);
+    private void clearViews() {
+        if (windowManager != null) {
+            if (chatheadView != null) {
+                windowManager.removeView(chatheadView);
+            }
+
+            if (removeView != null) {
+                windowManager.removeView(removeView);
+            }
         }
-
-        if(removeView != null){
-            windowManager.removeView(removeView);
-        }
-
     }
 }

@@ -16,8 +16,10 @@ public class CameraEventReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e(LOG_TAG, "onReveice");
         if (canShow(context)) {
-            Toast.makeText(context, "New Photo Clicked", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "New Photo Clicked", Toast.LENGTH_LONG).show();
             showIcon(context);
+        } else {
+            Log.e(LOG_TAG, "can not show");
         }
     }
 
