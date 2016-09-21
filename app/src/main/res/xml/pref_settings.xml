@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <SwitchPreferenceCompat
+            android:key="setting_icon_on_camera"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summary="Разрешить иконку в камере"
+            android:title="Иконка">
+        </SwitchPreferenceCompat>
+
+</PreferenceScreen>
